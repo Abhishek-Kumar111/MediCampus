@@ -1,0 +1,3 @@
+# Backend environment & dependencies
+backend/.env
+backend/node_modules/
