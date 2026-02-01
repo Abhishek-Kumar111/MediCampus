@@ -1,3 +1,253 @@
-.mngEventInp{
-    width: 100% !important;
+/* ─── Variables ─── */
+:root {
+    --clr-bg: #0f1923;
+    --clr-card: #162231;
+    --clr-card-hover: #1e2d3f;
+    --clr-accent: #38bdf8;
+    --clr-accent-hover: #7dd3fc;
+    --clr-danger: #f87171;
+    --clr-danger-hover: #fca5a5;
+    --clr-text: #e2e8f0;
+    --clr-text-muted: #7c8fa3;
+    --clr-border: rgba(56, 189, 248, 0.15);
+    --clr-input-bg: #0d1b2a;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Wrapper ─── */
+.manage-event-wrapper {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 24px 40px;
+    background: var(--clr-bg);
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    color: var(--clr-text);
+}
+
+/* ─── Header ─── */
+.manage-event-header {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.manage-event-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--clr-accent);
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.title-icon {
+    font-size: 1.5rem;
+}
+
+.manage-event-subtitle {
+    font-size: 0.82rem;
+    color: var(--clr-text-muted);
+    margin: 0;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+/* ─── Form ─── */
+.manage-event-form {
+    margin-bottom: 28px;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.manage-event-input {
+    flex: 1;
+    padding: 13px 18px;
+    border: 1.5px solid var(--clr-border);
+    border-radius: var(--radius);
+    background: var(--clr-input-bg);
+    color: var(--clr-text);
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.manage-event-input::placeholder {
+    color: var(--clr-text-muted);
+}
+
+.manage-event-input:focus {
+    border-color: var(--clr-accent);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+}
+
+/* ─── Add Button ─── */
+.manage-event-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 13px 22px;
+    background: var(--clr-accent);
+    color: #0f1923;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    white-space: nowrap;
+    box-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);
+}
+
+.manage-event-btn:hover {
+    background: var(--clr-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(56, 189, 248, 0.4);
+}
+
+.manage-event-btn:active {
+    transform: translateY(0);
+}
+
+/* ─── Event List ─── */
+.manage-event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ─── Empty State ─── */
+.manage-event-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 52px 20px;
+    border: 1.5px dashed var(--clr-border);
+    border-radius: var(--radius);
+    background: var(--clr-card);
+}
+
+.empty-icon {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+}
+
+.manage-event-empty p {
+    margin: 0;
+    color: var(--clr-text-muted);
+    font-size: 0.88rem;
+}
+
+/* ─── Event Item ─── */
+.manage-event-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--clr-card);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    animation: slideIn 0.35s ease both;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.manage-event-item:hover {
+    background: var(--clr-card-hover);
+    border-color: rgba(56, 189, 248, 0.3);
+    transform: translateX(4px);
+}
+
+/* ─── Event Index Badge ─── */
+.event-index {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--clr-accent);
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 3px 8px;
+    white-space: nowrap;
+    min-width: 32px;
+    text-align: center;
+}
+
+/* ─── Event Text ─── */
+.event-text {
+    flex: 1;
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--clr-text);
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+/* ─── Delete Button ─── */
+.event-delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--clr-text-muted);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition), transform var(--transition);
+    flex-shrink: 0;
+}
+
+.event-delete-btn:hover {
+    background: rgba(248, 113, 113, 0.12);
+    color: var(--clr-danger);
+    transform: scale(1.1);
+}
+
+.event-delete-btn:active {
+    transform: scale(1);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .manage-event-wrapper {
+        padding: 24px 14px 36px;
+    }
+
+    .input-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .manage-event-input,
+    .manage-event-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .manage-event-title {
+        font-size: 1.35rem;
+    }
 }

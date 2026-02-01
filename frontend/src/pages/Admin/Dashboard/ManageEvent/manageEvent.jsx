@@ -1,95 +1,129 @@
-import React, { useState, useEffect } from 'react'
-import './manageEvent.css'
+import React, { useState, useEffect, useCallback } from 'react';
+import './manageEvent.css';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ManageEvent = (props) => {
     const [title, setTitle] = useState("");
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         props.showLoader();
-        await axios.get(`http://localhost:4000/api/notification/get`).then((resp) => {
-            console.log(resp)
-            setData(resp.data.notifications)
-        }).catch(err => {
-            toast.error(err?.response?.data?.error)
-
-        }).finally(() => {
+        try {
+            const resp = await axios.get(`http://localhost:4000/api/notification/get`);
+            setData(resp.data.notifications);
+        } catch (err) {
+            toast.error(err?.response?.data?.error || "Failed to fetch events");
+        } finally {
             props.hideLoader();
-        })
-    }
+        }
+    }, []);
 
     useEffect(() => {
-        fetchData()
-    }, [])
+        fetchData();
+    }, [fetchData]);
 
-    const handleSubmitEvent = async(e)=>{
+    const handleSubmitEvent = async (e) => {
         e.preventDefault();
         if (title.trim().length === 0) return toast.error("Please Enter Title");
         props.showLoader();
-        await axios.post('http://localhost:4000/api/notification/add',{title},{withCredentials:true}).then((resp)=>{
-            
-            setData([resp.data.notification,...data]);
-            setTitle("")
-        }).catch(err => {
-            toast.error(err?.response?.data?.error)
-
-        }).finally(() => {
+        try {
+            const resp = await axios.post(
+                'http://localhost:4000/api/notification/add',
+                { title },
+                { withCredentials: true }
+            );
+            setData((prev) => [resp.data.notification, ...prev]);
+            setTitle("");
+        } catch (err) {
+            toast.error(err?.response?.data?.error || "Failed to add event");
+        } finally {
             props.hideLoader();
-        })
-    }
-    const filterOutEvent = (id)=>{
-        let newArr = data.filter((item)=>item._id!==id);
-        setData(newArr)
-    }
+        }
+    };
 
-    const handleDeleteEvent = async(id)=>{
+    const handleDeleteEvent = async (id) => {
         props.showLoader();
-        await axios.delete(`http://localhost:4000/api/notification/delete/${id}`,{withCredentials:true}).then((resp)=>{
-            filterOutEvent(id)
-        }).catch(err => {
-            toast.error(err?.response?.data?.error)
-
-        }).finally(() => {
+        try {
+            await axios.delete(
+                `http://localhost:4000/api/notification/delete/${id}`,
+                { withCredentials: true }
+            );
+            setData((prev) => prev.filter((item) => item._id !== id));
+        } catch (err) {
+            toast.error(err?.response?.data?.error || "Failed to delete event");
+        } finally {
             props.hideLoader();
-        })
-    }
+        }
+    };
 
     return (
-        <div className='add-staffs-box'>
-            <form onSubmit={handleSubmitEvent} className='register-form'>
-                <div className=''>
-                    <div className='register-input-box'>
-                        <input value={title} onChange={(event) => setTitle(event.target.value)} className='input-box-register mngEventInp' type='text' placeholder='Add Events' />
-                    </div>
-                </div>
-                <button type='submit' className='form-btn reg-btn'>Add</button>
-
-            </form>
-
-            <div className='list-staffs'>
-
-                {
-                    data.map((item, index) => {
-                        return (
-                            <div className='list-staff'>
-                                <div>{item.title.slice(0,60)}...</div>
-                                <div className='list-staff-btns'>
-                                    <div onClick={()=>handleDeleteEvent(item._id)} style={{ cursor: "pointer" }}><DeleteIcon /></div>
-
-                                </div>
-
-                            </div>
-                        );
-                    })
-                }
+        <div className="manage-event-wrapper">
+            <div className="manage-event-header">
+                <h2 className="manage-event-title">
+                    <span className="title-icon">📋</span> Manage Events
+                </h2>
+                <p className="manage-event-subtitle">{data.length} event{data.length !== 1 ? 's' : ''} currently active</p>
             </div>
 
-            <ToastContainer />
-        </div>
-    )
-}
+            <form onSubmit={handleSubmitEvent} className="manage-event-form">
+                <div className="input-wrapper">
+                    <input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="manage-event-input"
+                        type="text"
+                        placeholder="Enter a new event..."
+                    />
+                    <button type="submit" className="manage-event-btn">
+                        <AddIcon fontSize="small" />
+                        <span>Add</span>
+                    </button>
+                </div>
+            </form>
 
-export default ManageEvent
+            <div className="manage-event-list">
+                {data.length === 0 ? (
+                    <div className="manage-event-empty">
+                        <span className="empty-icon">🗓️</span>
+                        <p>No events yet. Add one above!</p>
+                    </div>
+                ) : (
+                    data.map((item, index) => (
+                        <div
+                            className="manage-event-item"
+                            key={item._id}
+                            style={{ animationDelay: `${index * 0.06}s` }}
+                        >
+                            <span className="event-index">#{index + 1}</span>
+                            <p className="event-text">
+                                {item.title.length > 60
+                                    ? item.title.slice(0, 60) + '...'
+                                    : item.title}
+                            </p>
+                            <button
+                                className="event-delete-btn"
+                                onClick={() => handleDeleteEvent(item._id)}
+                                aria-label="Delete event"
+                            >
+                                <DeleteIcon fontSize="small" />
+                            </button>
+                        </div>
+                    ))
+                )}
+            </div>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideCloseButton
+                theme="dark"
+            />
+        </div>
+    );
+};
+
+export default ManageEvent;

@@ -1,8 +1,8 @@
 import React from 'react';
-import './modal.css'; // Use the compact CSS above
+import './modal.css';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Modal = ({ header, handleClose, children, size = 'md' }) => {
+const Modal = ({ header, handleClose, value, children, size = 'md' }) => {
     // Prevent background scroll when modal is open
     React.useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -14,16 +14,16 @@ const Modal = ({ header, handleClose, children, size = 'md' }) => {
     // Close on ESC key
     React.useEffect(() => {
         const handleEsc = (e) => {
-            if (e.key === 'Escape') handleClose();
+            if (e.key === 'Escape') handleClose(value);
         };
         window.addEventListener('keydown', handleEsc);
         return () => window.removeEventListener('keydown', handleEsc);
-    }, [handleClose]);
+    }, [handleClose, value]);
 
     // Close on overlay click
     const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
-            handleClose();
+            handleClose(value);
         }
     };
 
@@ -32,9 +32,9 @@ const Modal = ({ header, handleClose, children, size = 'md' }) => {
             <div className={`modal-container modal-${size}`}>
                 <div className="modal-header">
                     <h2>{header}</h2>
-                    <button 
-                        className="modal-close-btn" 
-                        onClick={handleClose}
+                    <button
+                        className="modal-close-btn"
+                        onClick={() => handleClose(value)}
                         aria-label="Close modal"
                     >
                         <CloseIcon />
