@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 
-const mongoDBURL = "mongodb+srv://abhijee9815_db_user:dOki6cHUTI6XNYNs@cluster0.wnwidhp.mongodb.net/mediCampDB?appName=Cluster0" ; 
+const mongoDBURL = process.env.MONGODB_URL; 
 
 
 mongoose.connect(mongoDBURL)

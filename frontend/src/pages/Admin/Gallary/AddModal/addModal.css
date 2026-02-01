@@ -1,47 +1,344 @@
-.addModal{
+/* Modal Overlay */
+.addModal {
     position: fixed;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0,0,0,0.6);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+    padding: 16px;
 }
 
-.addModal-card{
-    width: 30%;
-    border-radius: 5px;
-    height: fit-content;
-    padding: 30px;
-    font-size: 20px;
-    height: fit-content;
-    background-color: white;
-}
-
-.modal-add-btns{
-    display: flex;
-    margin-top: 20px;
-    gap: 30px;
-}
-
-.cancel-modal-btn{
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid;
-    border-radius: 5px;
-    width: 70px;
-    color: white;
-    cursor: pointer;
-    background-color: #255674;
-    &:hover{
-        background-color: #2c98dc;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
 
-.cancel-file{
+/* Modal Card */
+.addModal-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.addModal-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #255674 0%, #2c7ba0 50%, #255674 100%);
+    background-size: 200% 100%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Header */
+.addModal-card > div:first-child {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a2332;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.5px;
+}
+
+.addModal-card > div:first-child::before {
+    content: '📸';
+    font-size: 24px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+/* Button Container */
+.modal-add-btns {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+/* Buttons */
+.cancel-modal-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Cancel Button */
+.modal-add-btns .cancel-modal-btn:first-child {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%);
+    color: #4a5568;
+    border-color: #e0e6ed;
+}
+
+.modal-add-btns .cancel-modal-btn:first-child:hover {
+    background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+    color: white;
+    border-color: #e53e3e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 62, 62, 0.3);
+}
+
+/* Upload Button (Label) */
+.modal-add-btns label.cancel-modal-btn {
+    background: linear-gradient(135deg, #255674 0%, #2c7ba0 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(37, 86, 116, 0.3);
+    position: relative;
+}
+
+.modal-add-btns label.cancel-modal-btn::before {
+    content: '⬆️';
+    margin-right: 6px;
+    font-size: 14px;
+}
+
+.modal-add-btns label.cancel-modal-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.modal-add-btns label.cancel-modal-btn:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+.modal-add-btns label.cancel-modal-btn:hover {
+    background: linear-gradient(135deg, #2c7ba0 0%, #1e4a5f 100%);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(37, 86, 116, 0.4);
+}
+
+/* Hide File Input */
+.cancel-file {
     display: none;
+}
+
+/* Loader Container */
+.addModal-card > div:has(.MuiCircularProgress-root) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Image Preview Container */
+.addModal-card img {
+    width: 100%;
+    max-width: 280px;
+    height: 280px;
+    object-fit: cover;
+    margin: 16px auto 0 auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 3px solid #e0e6ed;
+    animation: zoomIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.addModal-card img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    border-color: #255674;
+}
+
+/* Submit Button (appears after image upload) */
+.addModal-card > .cancel-modal-btn:last-child {
+    margin-top: 16px;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(72, 187, 120, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 700;
+}
+
+.addModal-card > .cancel-modal-btn:last-child::before {
+    content: '✓';
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.addModal-card > .cancel-modal-btn:last-child:hover {
+    background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(72, 187, 120, 0.5);
+}
+
+.addModal-card > .cancel-modal-btn:last-child:active {
+    transform: translateY(-1px) scale(1);
+}
+
+/* Loading State Enhancement */
+.MuiCircularProgress-root {
+    color: #255674 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .addModal-card {
+        padding: 16px;
+        max-width: 380px;
+    }
+
+    .addModal-card > div:first-child {
+        font-size: 18px;
+        margin-bottom: 14px;
+    }
+
+    .cancel-modal-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    .addModal-card img {
+        max-width: 240px;
+        height: 240px;
+    }
+}
+
+@media (max-width: 480px) {
+    .addModal {
+        padding: 12px;
+    }
+
+    .addModal-card {
+        padding: 14px;
+        border-radius: 12px;
+    }
+
+    .addModal-card > div:first-child {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .modal-add-btns {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .cancel-modal-btn {
+        width: 100%;
+    }
+
+    .addModal-card img {
+        max-width: 200px;
+        height: 200px;
+        margin-top: 12px;
+    }
+
+    .addModal-card > .cancel-modal-btn:last-child {
+        margin-top: 12px;
+    }
+}
+
+/* Click outside to close hint */
+.addModal::after {
+    content: 'Click outside to close';
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    animation: fadeInDelay 1s ease-out;
+}
+
+@keyframes fadeInDelay {
+    0%, 50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

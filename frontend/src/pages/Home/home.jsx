@@ -1,20 +1,25 @@
-import React, { useState } from 'react'
-import './home.css'
+import React, { useState } from 'react';
+import './home.css';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import ImageIcon from '@mui/icons-material/Image';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PersonIcon from '@mui/icons-material/Person';
 import AboutUs from '../../components/AboutUs/aboutUs';
 import Staff from '../../components/Staffs/staff';
 import Facility from '../../components/Facilities/facility';
 import NearByHospitals from '../../components/NearByHospitals/nearByHospitals';
 import Gallary from '../../components/Gallary/gallary';
 import { Link } from 'react-router-dom';
+
 const Home = (props) => {
-    const [page, setPage] = useState("About")
-    let [rightSideHeader, setRightSideHeader] = useState("About Us");
-    let userInfo = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
+    const [page, setPage] = useState("About");
+    const [rightSideHeader, setRightSideHeader] = useState("About Us");
+    const userInfo = localStorage.getItem("userInfo") 
+        ? JSON.parse(localStorage.getItem("userInfo")) 
+        : null;
 
     const handleChangeTab = (pagename) => {
         setPage(pagename);
@@ -29,13 +34,15 @@ const Home = (props) => {
                 setRightSideHeader("Facilities");
                 break;
             case "NearByHospitals":
-                setRightSideHeader("Near By Hosptals");
+                setRightSideHeader("Near By Hospitals");
                 break;
             case "Gallary":
-                setRightSideHeader("Gallary");
+                setRightSideHeader("Gallery");
                 break;
+            default:
+                setRightSideHeader("About Us");
         }
-    }
+    };
 
     const getComponent = () => {
         switch (page) {
@@ -44,59 +51,94 @@ const Home = (props) => {
             case "Staff":
                 return <Staff showLoader={props.showLoader} hideLoader={props.hideLoader} />;
             case "Facilities":
-                return <Facility showLoader={props.showLoader} hideLoader={props.hideLoader} />
+                return <Facility showLoader={props.showLoader} hideLoader={props.hideLoader} />;
             case "NearByHospitals":
                 return <NearByHospitals showLoader={props.showLoader} hideLoader={props.hideLoader} />;
             case "Gallary":
-                return <Gallary showLoader={props.showLoader} hideLoader={props.hideLoader} />
-
+                return <Gallary showLoader={props.showLoader} hideLoader={props.hideLoader} />;
             default:
-                return null;
+                return <AboutUs />;
         }
-    }
+    };
+
     return (
-        <div className='home'>
-            <div className='home-block'>
-                <div className='home-left-page'>
-                    {
-                        userInfo && userInfo?.role !== 'student' && <Link to={'/admin/dashboard'} className={`home-left-option`} >
-                            <HomeIcon /> Dashboard
-                        </Link>
-                    }
-                    {
-                        userInfo && userInfo?.role === 'student' && <Link to={`/student/${userInfo?._id}`} className={`home-left-option`} >
-                            <HomeIcon /> Profile
-                        </Link>
-                    }
+        <div className="home">
+            <div className="home-container">
+                <aside className="home-sidebar">
+                    <div className="sidebar-header">
+                        <h2>Navigation</h2>
+                    </div>
+                    
+                    <nav className="sidebar-nav">
+                        {userInfo && userInfo?.role !== 'student' && (
+                            <Link to="/admin/dashboard" className="sidebar-link dashboard-link">
+                                <DashboardIcon className="sidebar-icon" />
+                                <span>Dashboard</span>
+                            </Link>
+                        )}
+                        
+                        {userInfo && userInfo?.role === 'student' && (
+                            <Link to={`/student/${userInfo?._id}`} className="sidebar-link profile-link">
+                                <PersonIcon className="sidebar-icon" />
+                                <span>My Profile</span>
+                            </Link>
+                        )}
 
-                    <div className={`home-left-option ${page === "About" ? "active-opt" : null}`} onClick={() => { handleChangeTab("About") }}>
-                        <HomeIcon /> About Us
-                    </div>
-                    <div className={`home-left-option ${page === "Staff" ? "active-opt" : null}`} onClick={() => { handleChangeTab("Staff") }}>
-                        <PeopleAltIcon /> Staffs
-                    </div>
-                    <div className={`home-left-option ${page === "Facilities" ? "active-opt" : null}`} onClick={() => { handleChangeTab("Facilities") }}>
-                        <Diversity3Icon /> Facilities
-                    </div>
-                    <div className={`home-left-option ${page === "NearByHospitals" ? "active-opt" : null}`} onClick={() => { handleChangeTab("NearByHospitals") }}>
-                        <LocalHospitalIcon /> Near By Hospitals
-                    </div>
-                    <div className={`home-left-option ${page === "Gallary" ? "active-opt" : null}`} onClick={() => { handleChangeTab("Gallary") }}>
-                        <ImageIcon /> Gallary
-                    </div>
+                        <div 
+                            className={`sidebar-option ${page === "About" ? "active-option" : ""}`} 
+                            onClick={() => handleChangeTab("About")}
+                        >
+                            <HomeIcon className="sidebar-icon" />
+                            <span>About Us</span>
+                        </div>
 
-                </div>
-                <div className='home-right-page'>
-                    <div className='home-right-header'>
-                        {rightSideHeader}
-                    </div>
-                    <div className='home-right-section'>
+                        <div 
+                            className={`sidebar-option ${page === "Staff" ? "active-option" : ""}`} 
+                            onClick={() => handleChangeTab("Staff")}
+                        >
+                            <PeopleAltIcon className="sidebar-icon" />
+                            <span>Our Staff</span>
+                        </div>
+
+                        <div 
+                            className={`sidebar-option ${page === "Facilities" ? "active-option" : ""}`} 
+                            onClick={() => handleChangeTab("Facilities")}
+                        >
+                            <Diversity3Icon className="sidebar-icon" />
+                            <span>Facilities</span>
+                        </div>
+
+                        <div 
+                            className={`sidebar-option ${page === "NearByHospitals" ? "active-option" : ""}`} 
+                            onClick={() => handleChangeTab("NearByHospitals")}
+                        >
+                            <LocalHospitalIcon className="sidebar-icon" />
+                            <span>Near By Hospitals</span>
+                        </div>
+
+                        <div 
+                            className={`sidebar-option ${page === "Gallary" ? "active-option" : ""}`} 
+                            onClick={() => handleChangeTab("Gallary")}
+                        >
+                            <ImageIcon className="sidebar-icon" />
+                            <span>Gallery</span>
+                        </div>
+                    </nav>
+                </aside>
+
+                <main className="home-content">
+                    <header className="content-header">
+                        <h1 className="content-title">{rightSideHeader}</h1>
+                        <div className="header-decoration"></div>
+                    </header>
+                    
+                    <section className="content-body">
                         {getComponent()}
-                    </div>
-                </div>
+                    </section>
+                </main>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

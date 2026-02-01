@@ -1,0 +1,281 @@
+/* Medicine Modal Form Container */
+.medicine-modal-form {
+    width: 100%;
+    padding: 10px 0;
+}
+
+/* Form Division */
+.register-form-div {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+/* Input Box Container */
+.register-input-box {
+    position: relative;
+    width: 100%;
+}
+
+/* Modern Input Styling */
+.input-box-register {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1e293b;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input-box-register::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* Focus State */
+.input-box-register:focus {
+    background: white;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Hover State */
+.input-box-register:hover {
+    border-color: #cbd5e1;
+    background: white;
+}
+
+/* Number Input - Remove Arrows (Optional) */
+.input-box-register[type="number"]::-webkit-inner-spin-button,
+.input-box-register[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-box-register[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Filled Input State */
+.input-box-register:not(:placeholder-shown) {
+    background: white;
+    border-color: #94a3b8;
+}
+
+/* Error State (can be added via className) */
+.input-box-register.error {
+    border-color: #ef4444;
+    background: #fef2f2;
+}
+
+.input-box-register.error:focus {
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+/* Success State (can be added via className) */
+.input-box-register.success {
+    border-color: #10b981;
+    background: #f0fdf4;
+}
+
+/* Input Icons (if you want to add them later) */
+.register-input-box .input-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+/* Form Button Styling */
+.form-btn {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.reg-btn {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+
+.reg-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    transform: translateY(-2px);
+}
+
+.reg-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Button Loading State */
+.form-btn:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Button Ripple Effect */
+.form-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.form-btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Label Styling (if you want to add labels) */
+.register-input-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+
+/* Helper Text */
+.helper-text {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 6px;
+    padding-left: 4px;
+}
+
+.helper-text.error {
+    color: #ef4444;
+}
+
+/* Floating Label Animation (Optional Enhancement) */
+.register-input-box.floating-label {
+    position: relative;
+    margin-top: 8px;
+}
+
+.register-input-box.floating-label label {
+    position: absolute;
+    left: 16px;
+    top: 14px;
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    background: white;
+    padding: 0 4px;
+}
+
+.register-input-box.floating-label input:focus + label,
+.register-input-box.floating-label input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 12px;
+    font-size: 12px;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* Form Grid Layout (if you want side-by-side inputs) */
+.register-form-div.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.register-form-div.grid .register-input-box.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-form-div.grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .input-box-register {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+    
+    .form-btn {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+}
+
+/* Animation for form appearance */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.register-form-div {
+    animation: slideInUp 0.4s ease;
+}
+
+/* Individual input animation with delay */
+.register-input-box:nth-child(1) {
+    animation: slideInUp 0.3s ease 0.1s backwards;
+}
+
+.register-input-box:nth-child(2) {
+    animation: slideInUp 0.3s ease 0.2s backwards;
+}
+
+.register-input-box:nth-child(3) {
+    animation: slideInUp 0.3s ease 0.3s backwards;
+}
+
+.form-btn {
+    animation: slideInUp 0.3s ease 0.4s backwards;
+}
+
+/* Input Focus Glow Effect */
+@keyframes inputGlow {
+    0%, 100% {
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.15);
+    }
+}
+
+.input-box-register:focus {
+    animation: inputGlow 2s ease-in-out infinite;
+}

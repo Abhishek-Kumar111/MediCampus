@@ -270,8 +270,9 @@ exports.addStaffsByAdmin = async(req,res)=>{
             if (error) {
                 res.status(500).json({ error: 'Server error', errorMsg: error });
             } else {
-                res.status(200).json({ message: "Password Sent to your staff's email id" })
-                user.save();
+                const savedUser = user.save();
+                res.status(200).json({ message: "Password Sent to your staff's email id" , staff: savedUser})
+                
 
             }
         });

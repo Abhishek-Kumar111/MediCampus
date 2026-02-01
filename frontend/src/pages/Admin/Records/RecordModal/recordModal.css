@@ -1,60 +1,266 @@
-.student-modal-report{
-    margin:20px 0;
-    font-size: 20px;
-    display: flex;
-    justify-content: space-between;
+/* Main Modal Container */
+.record-modal {
+    padding: 12px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.3s ease-in;
 }
 
-.student-details-scroll{
-    max-height: 450px;
-    min-height: 100px;
-    overflow-y: auto;
-
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.student-modal-detail{
-    width: 100%;
-
-}
-
-.student-modal-header{
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #255674;
-}
-
-.student-modal-body-student{
-    margin-top: 20px;
-    padding-bottom: 20px;
-}
-
-.student-modal-body-header{
-    padding: 15px;
-    width: 60%;
-    box-sizing: border-box;
-    background-color: #255674;
-    color: white;
-    display: flex;
-    border-radius: 5px;
-    justify-content: space-between;
-}
-
-
-.student-modal-body-item{
-    width: 60%;
-    padding: 10px;
+/* Student Report Section */
+.student-modal-report {
+    background: linear-gradient(135deg, #255674 0%, #1e4a5f 100%);
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(37, 86, 116, 0.3);
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    border-radius: 5px;
-    box-sizing: border-box;
-    margin-top: 10px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-
+    gap: 6px;
 }
 
-.student-item-modal{
+.student-modal-report div {
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.student-modal-report div:first-child {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.student-modal-report div:nth-child(2) {
+    opacity: 0.9;
+    font-size: 12px;
+}
+
+.student-modal-report div:last-child {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 12px;
+    width: fit-content;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+/* Scrollable Details Section */
+.student-details-scroll {
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.student-details-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.student-details-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.student-details-scroll::-webkit-scrollbar-thumb {
+    background: #255674;
+    border-radius: 10px;
+}
+
+.student-details-scroll::-webkit-scrollbar-thumb:hover {
+    background: #1e4a5f;
+}
+
+/* Modal Detail Container */
+.student-modal-detail {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+/* Header with Date */
+.student-modal-header {
+    background: linear-gradient(90deg, #2c7ba0 0%, #255674 100%);
+    color: white;
+    padding: 8px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.student-modal-header::before {
+    content: '📅';
+    font-size: 14px;
+}
+
+/* Body Section */
+.student-modal-body-student {
+    padding: 10px;
+}
+
+/* Body Header (Column Names) */
+.student-modal-body-header {
     display: flex;
     justify-content: space-between;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #e8f4f8 0%, #d1e7f0 100%);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 12px;
+    color: #255674;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid #255674;
+}
+
+.student-modal-body-header div:first-child {
+    flex: 1;
+}
+
+.student-modal-body-header div:last-child {
+    width: 100px;
+    text-align: center;
+}
+
+/* Body Items Container */
+.student-modal-body-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.student-modal-body-item::-webkit-scrollbar {
+    width: 5px;
+}
+
+.student-modal-body-item::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.student-modal-body-item::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+}
+
+.student-modal-body-item::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Individual Item Row */
+.student-item-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #fafbfc;
+    border: 1px solid #e0e6ed;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.student-item-modal:hover {
+    background: white;
+    border-color: #255674;
+    box-shadow: 0 2px 12px rgba(37, 86, 116, 0.1);
+    transform: translateY(-1px);
+}
+
+.student-item-modal div:first-child {
+    flex: 1;
+    font-weight: 500;
+    color: #2d3748;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.student-item-modal div:first-child::before {
+    content: '💊';
+    font-size: 16px;
+}
+
+.student-item-modal div:last-child {
+    width: 100px;
+    text-align: center;
+    font-weight: 700;
+    color: #255674;
+    font-size: 14px;
+    background: linear-gradient(135deg, #e8f4f8 0%, #d1e7f0 100%);
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 2px solid #255674;
+}
+
+/* Empty State */
+.student-modal-body-item:empty::after {
+    content: 'No medicines recorded';
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: #a0aec0;
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .record-modal {
+        padding: 10px;
+    }
+
+    .student-modal-report {
+        padding: 10px 12px;
+    }
+
+    .student-modal-report div:first-child {
+        font-size: 14px;
+    }
+
+    .student-modal-body-header,
+    .student-item-modal {
+        font-size: 11px;
+    }
+
+    .student-modal-body-header div:last-child,
+    .student-item-modal div:last-child {
+        width: 80px;
+    }
+
+    .student-details-scroll {
+        max-height: 240px;
+    }
 }
