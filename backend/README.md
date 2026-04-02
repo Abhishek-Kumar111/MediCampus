@@ -59,36 +59,6 @@ MediCampus/
 │   ├── connection.js              # MongoDB connection setup
 │   ├── index.js                   # App entry point
 │   └── .env                       # Environment variables
-│
-└── frontend/
-    ├── public/
-    └── src/
-        ├── components/
-        │   ├── AboutUs/           # About page component
-        │   ├── Facilities/        # Facilities listing
-        │   ├── FogotModal/        # Forgot password modal
-        │   ├── Footer/            # Footer component
-        │   ├── Gallary/           # Gallery viewer
-        │   ├── GlobalLoader/      # App-wide loading spinner
-        │   ├── Header/            # Navigation header
-        │   ├── Modal/             # Generic modal
-        │   ├── NearByHospitals/   # Nearby hospitals map/list
-        │   ├── SearchBox/         # Search component
-        │   ├── Staffs/            # Staff listing
-        │   └── Table/             # Reusable table component
-        ├── pages/
-        │   ├── Admin/             # Admin dashboard & management
-        │   ├── Home/              # Landing/home page
-        │   ├── Login/             # Login page
-        │   ├── Stock/             # Medicine stock management
-        │   └── Student/           # Student portal
-        ├── App.css
-        ├── App.jsx                # Root component & routing
-        ├── index.css
-        └── main.jsx               # React entry point
-```
-
----
 
 ## ⚙️ API Endpoints
 
@@ -147,24 +117,7 @@ Backend runs at: `http://localhost:4000`
 
 ---
 
-### Frontend Setup
 
-```bash
-# Navigate to frontend
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Frontend runs at: `http://localhost:5173`
-
-> The frontend communicates with the backend via REST APIs with credentials (cookies) enabled.
-
----
 
 ## ✨ Features
 
