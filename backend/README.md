@@ -28,7 +28,7 @@ The system provides role-based dashboard endpoints:
 Role-based access control implemented via middleware:
 
 ---
-
+---
 ## 🚀 Tech Stack
 
 | Layer | Technology |
@@ -39,11 +39,10 @@ Role-based access control implemented via middleware:
 | Templating | EJS |
 | Email Service | Nodemailer |
 | Styling | CSS Modules |
-
+---
 ---
 
 ## 📁 Project Structure
-
 ```
 MediCampus/
 │
@@ -59,6 +58,7 @@ MediCampus/
 │   ├── connection.js              # MongoDB connection setup
 │   ├── index.js                   # App entry point
 │   └── .env                       # Environment variables
+```
 
 ## ⚙️ API Endpoints
 
@@ -74,20 +74,19 @@ MediCampus/
 
 ---
 
-## 🔧 Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (v16+)
-- MongoDB (local or Atlas URI)
-- npm
+- **Node.js** v16+
+- **MongoDB** (local or Atlas URI)
+- **npm**
 
 ---
 
-### Backend Setup
-
+### 🔧 Backend Setup
 ```bash
-# Navigate to backend
+# Navigate to backend directory
 cd backend
 
 # Install dependencies
